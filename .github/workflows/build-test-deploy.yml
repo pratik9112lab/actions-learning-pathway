@@ -24,12 +24,4 @@ jobs:
          with:
           node-version: '18.x'
        - run: npm install
-       - name: Install ESLint with Next.js plugins
-         run: npm install --save-dev eslint eslint-config-next
-       - name: Create default ESLint config
-         run: |
-           echo '{
-           "extends": "next/core-web-vitals"
-           }' > .eslintrc.json
-      
        - run: npm test
