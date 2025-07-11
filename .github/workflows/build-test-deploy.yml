@@ -12,18 +12,33 @@ jobs:
           node-version: '18.x'
       - run: npm install
       - run: npm run build 
-  test: 
-    needs: build
-    runs-on: ubuntu-latest
-    steps: 
-      - name: checkout repo
+  test:
+     needs: build
+     runs-on: ubuntu-latest
+     steps:
+      - name: Checkout repo
         uses: actions/checkout@v3
-      - name: use node.js
+
+      - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18.x'
-      - run: npm install
-      - run: npm test
+         node-version: '18.x'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install ESLint and Next.js plugin
+        run: npm install --save-dev eslint eslint-config-next
+
+      - name: Create ESLint config
+        run: |
+         echo '{
+          "extends": "next/core-web-vitals"
+         }' > .eslintrc.json
+
+      - name: Run tests
+        run: npm test
+
   deploy:
     needs: test
 
