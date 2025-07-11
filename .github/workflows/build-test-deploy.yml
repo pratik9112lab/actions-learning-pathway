@@ -24,4 +24,9 @@ jobs:
          with:
           node-version: '18.x'
        - run: npm install
+       - name: Create default ESLint config
+         run: |
+           echo '{
+           "extends": "next/core-web-vitals"
+           }' > .eslintrc.json
        - run: npm test
